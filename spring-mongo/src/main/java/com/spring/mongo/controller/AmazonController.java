@@ -5,6 +5,8 @@ import com.spring.mongo.exception.UserNotFoundException;
 import com.spring.mongo.model.User;
 import com.spring.mongo.repo.AmazonRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,9 +18,9 @@ public class AmazonController {
     private AmazonRepo amazonRepo;
 
     @PostMapping("/placeOrder")
-    public String placeOrder(@RequestBody User user) {
+    public ResponseEntity<?> placeOrder(@RequestBody User user) {
         amazonRepo.save(user);
-        return "Order placed successfully";
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
     @GetMapping("/getUserByName/{name}")
