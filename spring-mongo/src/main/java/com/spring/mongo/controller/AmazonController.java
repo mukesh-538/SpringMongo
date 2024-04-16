@@ -4,15 +4,15 @@ import com.spring.mongo.exception.CityNotFoundException;
 import com.spring.mongo.exception.UserNotFoundException;
 import com.spring.mongo.model.User;
 import com.spring.mongo.repo.AmazonRepo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RequestMapping("/orderService")
 @RestController
+@Slf4j
 public class AmazonController {
     @Autowired
     private AmazonRepo amazonRepo;
@@ -20,7 +20,7 @@ public class AmazonController {
     @PostMapping("/placeOrder")
     public ResponseEntity<?> placeOrder(@RequestBody User user) {
         amazonRepo.save(user);
-        return ResponseEntity.ok(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/getUserByName/{name}")
